@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- SEO Meta Tags -->
+    <title>Magic Image Describer - AI Image Generator</title>
+    <meta name="description"
+        content="Generate stunning AI-powered images instantly. Create unique artwork with advanced AI models like Stable Diffusion and more.">
+    <meta name="keywords" content="AI Image Generator, AI Art, Stable Diffusion, AI-powered images, Art Generator">
+    <meta name="author" content="CeylonCodex">
+    <!-- Open Graph Meta (For Facebook, LinkedIn) -->
+    <meta property="og:title" content="AI Image Generator - Create Stunning AI Art">
+    <meta property="og:description" content="Generate unique AI images instantly using cutting-edge AI models.">
+    <meta property="og:image" content="https://i.ibb.co/xtLjgrY4/ai-image-gen-2.png">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:type" content="website">
+    <!-- Favicon (Add this inside <head>) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
+    <link rel="manifest" href="image/site.webmanifest">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #4e54c8, #f578b7);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff22;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-zone {
+            width: 100%;
+            padding: 2rem;
+            border: 2px dashed #ffffff88;
+            border-radius: 15px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .upload-zone:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fff;
+        }
+
+        .upload-zone i {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .button {
+            padding: 0.8rem 1.2rem;
+            margin-top: 1rem;
+            border: none;
+            background: #ff8a00;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .button:hover {
+            background: #e67700;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #ff8a00;
+        }
+
+        .message {
+            display: none;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .error-message {
+            color: #ff4d4d;
+        }
+
+        .success-message {
+            color: #4dff88;
+        }
+
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .preview-card {
+            background: #ffffff33;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .description-box {
+            width: 100%;
+            height: 100px;
+            background: #ffffff11;
+            border: 1px solid #ffffff33;
+            border-radius: 10px;
+            padding: 0.8rem;
+            color: #fff;
+            font-size: 0.9rem;
+            resize: none;
+        }
+
+        footer {
+            margin-top: auto;
+            width: 100%;
+            padding: 1rem 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .footer-menu {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .footer-link {
+            color: #fff;
+            font-size: 0.9rem;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .footer-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (min-width: 600px) {
+            .container {
+                max-width: 500px;
+            }
+
+            .preview-section {
+                flex-direction: row;
+            }
+        }
+
+        .copy-button {
+            background: #00c896;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .copy-button:hover {
+            background: #009f75;
+        }
+    </style>
+    <!DOCTYPE html>
+    <html lang="en">
+
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Magic Image Describer ✨</h1>
+            <p>Upload any image and let AI tell you what it sees!</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-zone" id="uploadZone">
+                <i class="bi bi-cloud-upload"></i>
+                <p>Drop your magical image here</p>
+                <p>or</p>
+                <button class="button">Choose an Image</button>
+            </div>
+            <input type="file" id="imageInput" class="file-input" accept="image/*" style="display: none;">
+            <button id="fetchData" class="button" style="width: 100%" disabled>
+                Reveal the Magic Description
+            </button>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">Casting the description spell...</div>
+
+        <div class="message error-message" id="errorMessage" style="display: none;"></div>
+        <div class="message success-message" id="successMessage" style="display: none;"></div>
+
+        <div class="preview-section">
+            <div class="preview-card">
+                <h3>Your Magical Image</h3>
+                <img id="uploadedImage" class="image-preview" src="" alt="Uploaded preview will appear here">
+            </div>
+            <div class="preview-card">
+                <h3>Magic Description</h3>
+                <textarea id="responseBox" class="description-box" readonly></textarea>
+                <button id="copyText" class="button copy-button">📋 Copy Description</button>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-menu">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="chat.html" class="footer-link">Chat</a>
+            <a href="about.html" class="footer-link">About</a>
+        </div>
+    </footer>
+
+    <!-- Link external JavaScript -->
+    <script src="chat.js"></script>
+</body>
+
+</html>
